@@ -1,0 +1,217 @@
+<html>
+<title>subspace - html</title>
+
+<head>
+<script src="js/jquery.min.js"></script>
+
+<style>
+
+body { background-color:black; }
+
+.warp1 {
+	z-index:5;
+	position:absolute;
+	top:300px;
+	left:400px;
+    width: 48px;
+    height: 48px;
+    background-image: url("graphics/warp.png");
+    -webkit-animation: warp1ani 1s steps(5) infinite;
+}
+
+@-webkit-keyframes warp1ani {
+   from { background-position-y:    0px; background-position-x:    0px; }
+     33% { background-position-y:    0px; background-position-x: -240px; }
+     33.0001% { background-position-y:  -48px; background-position-x:    0px; }
+     66% { background-position-y:  -48px; background-position-x: -240px; }
+     66.0001% { background-position-y:  -96px; background-position-x:    0px; }
+     100% { background-position-y:  -96px; background-position-x: -240px; }
+}    
+
+.over1 {
+	z-index:5;
+	position:absolute;
+    width: 32px;
+    height: 32px;
+    background-image: url("graphics/over2.png");
+    -webkit-animation: over1ani 2s steps(9) infinite;
+}
+
+@-webkit-keyframes over1ani {
+   from { background-position-y:    0px; background-position-x:    0px; }
+     33% { background-position-y:    0px; background-position-x: -288px; }
+     33.0001% { background-position-y:  -32px; background-position-x:    0px; }
+     66% { background-position-y:  -32px; background-position-x: -288px; }
+     66.0001% { background-position-y:  -64px; background-position-x:    0px; }
+     100% { background-position-y:  -64px; background-position-x: -288px; }
+}    
+
+.ship1 {
+	z-index:10;
+	position:absolute;
+    width: 36px;
+    height: 36px;
+    background-image: url("graphics/weroll.png");
+    -webkit-animation: ship1ani 2s steps(9) infinite;
+}
+
+@-webkit-keyframes ship1ani {
+   from { background-position-y:    0px; background-position-x:    0px; }
+     25% { background-position-y:    0px; background-position-x: -324px; }
+     25.0001% { background-position-y:  -36px; background-position-x:    0px; }
+     50% { background-position-y:  -36px; background-position-x: -324px; }
+     50.0001% { background-position-y:  -72px; background-position-x:    0px; }
+     75% { background-position-y:  -72px; background-position-x: -324px; }
+     75.0001% { background-position-y:  -108px; background-position-x:    0px; }
+     100% { background-position-y:  -108px; background-position-x: -324px; }
+}    
+
+.prizes1 {
+	position:absolute;
+	top:300px;
+	left:800px;
+    width: 16px;
+    height: 16px;
+    background-image: url("graphics/prizes.png");
+    -webkit-animation: prizes1ani 1s steps(9) infinite;
+}
+
+@-webkit-keyframes prizes1ani {
+   from { background-position-y:    0px; background-position-x:    0px; }
+   to { background-position-y:    0px; background-position-x: -144px; }
+}    
+
+
+
+
+.bg1 {
+	z-index:5;
+	position:absolute;
+	top:50px;
+	left:50px;
+    background-image: url("graphics/bg01.png");
+	width:64px;
+	height:64px;
+}
+
+.bg2 {
+	z-index:5;
+	position:absolute;
+	top:450px;
+	left:850px;
+    background-image: url("graphics/bg02.png");
+	width:64px;
+	height:64px;
+}
+
+.bg3 {
+	z-index:5;
+	position:absolute;
+	top:350px;
+	left:650px;
+    background-image: url("graphics/bg03.png");
+	width:64px;
+	height:64px;
+}
+
+
+.star1 {
+    background-image: url("graphics/star01.gif");
+	width:21px;
+	height:21px;
+}
+
+.star2 {
+    background-image: url("graphics/star02.gif");
+	width:9px;
+	height:9px;
+}
+
+.star3 {
+    background-image: url("graphics/star03.gif");
+	width:7px;
+	height:7px;
+}
+
+.star4 {
+    background-image: url("graphics/star04.gif");
+	width:9px;
+	height:9px;
+}
+
+.star5 {
+    background-image: url("graphics/star05.gif");
+	width:7px;
+	height:7px;
+}
+
+.star6 {
+    background-image: url("graphics/star06.gif");
+	width:14px;
+	height:14px;
+}
+
+.star7 {
+    background-image: url("graphics/star07.png");
+	width:20px;
+	height:20px;
+}
+
+
+
+</style>
+
+<script>
+
+	function makeStar(){
+		// vary size for fun
+		$newdiv = $('<div class="star'+ Math.floor((Math.random()*7)+1) +'"/>');
+
+		// make position sensitive to size and document's width
+		var posx = (Math.random() * ($(document).width() - 30)).toFixed();
+		var posy = (Math.random() * ($(document).height() - 30)).toFixed();
+
+		$newdiv.css({
+			'position':'absolute',
+			'left':posx+'px',
+			'top':posy+'px',
+			'display':'none'
+		}).appendTo( 'body' ).fadeIn(100).delay(Math.floor((Math.random()*2000)+500)).fadeOut(500, function(){
+		  $(this).remove();
+		  makeStar(); 
+		}); 
+	};
+	
+	function moveship1()
+	{
+		$("#ship1").animate({left:"+="+Math.floor((Math.random()*75)+50),top:"+="+Math.floor((Math.random()*20)+50) },3000,function() { moveship1() });
+	}
+
+  $(function () {
+   for (var i=0; i<100; i++)
+   {
+		makeStar();
+   }
+   moveship1();
+//   var stargaze=setInterval(makeStar, 25);
+  })
+</script>
+
+</head>
+<body>
+
+<div class="warp1"></div>
+<div class="over1" style="top:500px;	left:500px;"></div>
+<div class="over1" style="top:100px;	left:400px;"></div>
+<div class="over1" style="top:800px;	left:800px;"></div>
+<div class="over1" style="top:250px;	left:100px;"></div>
+
+<div id="ship1" class="ship1" style="top:40px;	left:40px;"></div>
+
+<div class="prizes1"></div>
+
+<div class="bg1"></div>
+<div class="bg2"></div>
+<div class="bg3"></div>
+
+</body>
